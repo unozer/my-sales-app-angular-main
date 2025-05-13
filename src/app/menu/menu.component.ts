@@ -1,23 +1,18 @@
 import { Component } from '@angular/core';
 import { MatListModule } from '@angular/material/list';
+import { RouterModule } from '@angular/router';
 
 interface MenuItem {
-   /**
-   * The path that will be loaded when you click on the menu
-   */
    path: string;
-   /**
-    * The text that will be displayed in the menu
-    */
    label: string;
 }
 
 @Component({
     selector: 'app-menu',
-    imports: [MatListModule],
+    imports: [MatListModule, RouterModule],
     template: `
    @for (item of menuItems; track item.path) {
-        <a mat-list-item [href]="item.path">{{item.label}}</a>
+        <a mat-list-item [routerLink]="item.path">{{item.label}}</a>
       }
   `,
     styles: ``
@@ -36,5 +31,9 @@ export class MenuComponent {
       path: 'suppliers',
       label: 'Suppliers'
     },
+    {
+      path: 'checkout',
+      label: 'Checkout'
+    }
   ]
 }

@@ -9,6 +9,11 @@ import { LoadingBarComponent } from '../../loading-bar.component';
 import { CartService } from '../../cart.service';
 import { ProductsCardComponent } from '../products-card/products-card.component';
 import { CartItem } from '../../cart.dto';
+import {
+  MatButtonToggle,
+  MatButtonToggleGroup,
+} from '@angular/material/button-toggle';
+import { ProductsTableComponent } from "../../products-table/products-table.component";
 
 @Component({
   selector: 'app-products-list',
@@ -19,7 +24,10 @@ import { CartItem } from '../../cart.dto';
     AsyncPipe,
     LoadingBarComponent,
     ProductsCardComponent,
-  ],
+    MatButtonToggle,
+    MatButtonToggleGroup,
+    ProductsTableComponent
+],
 })
 export class ProductsListComponent implements OnInit {
   productService = inject(ProductService);

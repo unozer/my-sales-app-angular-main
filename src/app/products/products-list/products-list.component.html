@@ -1,4 +1,16 @@
 @if (productsObservable|async) {
+
+<div style="display: flex; justify-content: end; margin: 8px;">
+  <mat-button-toggle-group #group="matButtonToggleGroup">
+    <mat-button-toggle value="card" checked>
+      <mat-icon>grid_on</mat-icon>
+    </mat-button-toggle>
+    <mat-button-toggle value="table">
+      <mat-icon>list</mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>
+
 <div>
   <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
     <div class="container">
@@ -12,13 +24,23 @@
   </form>
 </div>
 <div class="container wrap">
-  @for(product of products; track product.id){ 
-    @defer (on viewport){
-      <app-products-card [product]="product"></app-products-card>
+  @if (group.value == 'card') {
+    @for(product of products; track product.id){
+      @defer (on viewport){
+        <app-products-card [product]="product"></app-products-card>
+      } @placeholder {
+        <span>Placeholder</span>
+      } @loading {
+        <span>Loading</span>
+      }
+    }
+  } @else {
+    @defer {
+      <app-products-table [products]="products"></app-products-table>
     } @placeholder {
-      <span>Placeholder</span>
-    } @loading  {
-      <span>Loading</span>
+      <span>Loading table...</span>
+    } @loading {
+      <span>Loading table...</span>
     }
   }
 </div>

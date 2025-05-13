@@ -12,9 +12,6 @@
   </form>
 </div>
 <div class="container wrap">
-  <!-- @for (item of [].constructor(100); track $index) {
-    <div style="height:100px;width:100%">{{$index}}</div>
-  } -->
   @for(product of products; track product.id){ 
     @defer (on viewport){
       <app-products-card [product]="product"></app-products-card>

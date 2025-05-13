@@ -8,6 +8,7 @@ import { AsyncPipe } from '@angular/common';
 import { LoadingBarComponent } from '../../loading-bar.component';
 import { CartService } from '../../cart.service';
 import { ProductsCardComponent } from '../products-card/products-card.component';
+import { CartItem } from '../../cart.dto';
 
 @Component({
   selector: 'app-products-list',
@@ -46,7 +47,13 @@ export class ProductsListComponent implements OnInit {
     console.log(this.products);
   }
 
-  onAddToCart(item: Product) {
-    console.log("TODO")
+  onAddToCart(product: Product) {
+    const cartItem: CartItem = {
+      idProduct: product.id,
+      name: product.name,
+      quantity: 1,
+      unitPrice: product.unitPrice,
+    };
+    this.cartService.addItem(cartItem);
   }
 }

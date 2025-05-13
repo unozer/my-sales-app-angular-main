@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable, lastValueFrom } from 'rxjs';
 import { Product } from '../product.dto';
@@ -37,6 +37,9 @@ export class ProductsListComponent implements OnInit {
   products: Product[];
   productsObservable: Observable<Product[]>;
   searchForm: FormGroup;
+  currentViewMode: string = 'card';
+
+  @ViewChild('group') viewToggleGroup: MatButtonToggleGroup;
 
   async ngOnInit() {
     this.searchForm = this.fb.group({
@@ -51,8 +54,19 @@ export class ProductsListComponent implements OnInit {
   }
 
   async onSearch() {
+    console.log(`Searching in ${this.currentViewMode} view mode`);
+    
     await this.fetchProducts(this.searchForm.value.searchTerm);
-    console.log(this.products);
+    
+    if (this.viewToggleGroup && this.currentViewMode) {
+      this.viewToggleGroup.value = this.currentViewMode;
+    }
+    
+    if (this.currentViewMode === 'table') {
+      console.log('Table view search completed');
+    } else {
+      console.log('Card view search completed');
+    }
   }
 
   onAddToCart(product: Product) {

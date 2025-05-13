@@ -36,7 +36,9 @@
     }
   } @else {
     @defer {
-      <app-products-table [products]="products"></app-products-table>
+      <div style="width: 100%;">
+        <app-products-table [products]="products"></app-products-table>
+      </div>
     } @placeholder {
       <span>Loading table...</span>
     } @loading {
